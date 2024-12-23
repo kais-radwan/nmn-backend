@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import fetch from "npm:node-fetch";
 import {
   GetDataOptions,
   NextPage,

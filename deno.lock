@@ -768,6 +768,7 @@
         "npm:@supabase/supabase-js@^2.46.1",
         "npm:axios@^1.7.7",
         "npm:hono@^4.6.10",
+        "npm:node-fetch@^3.3.2",
         "npm:string-similarity@^4.0.4",
         "npm:tsup@^8.3.5",
         "npm:typescript@^5.6.3"
