@@ -19,7 +19,9 @@ export async function startSession(userId: string, exclude: string[] = []) {
     .order("weight", { ascending: false })
     .limit(10);
 
-  const all = await Promise.all([latest, top]);
+  const negative = supabase.from("prefs").select().lt("weight", 0);
+
+  const all = await Promise.all([latest, top, negative]);
 
   if (all[0].error || all[1].error) {
     console.error(all[0].error || all[1].error);
@@ -43,6 +45,7 @@ export async function startSession(userId: string, exclude: string[] = []) {
     const s = sSelection({
       top: topData,
       latest: latestData,
+      negative: (all[2].data || []) as PrefItem[],
     });
     latestData = latestData.filter((a) => a.id !== s.id);
     topData = topData.filter((a) => a.id !== s.id);

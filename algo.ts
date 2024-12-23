@@ -4,11 +4,13 @@ import { PrefItem } from "./types.ts";
 interface Inputs {
   latest: PrefItem[];
   top: PrefItem[];
+  negative: PrefItem[];
 }
 
 export function sSelection(args: Inputs) {
   const allData: PrefItem[] = [];
   const latestIds: string[] = [];
+  const negativeIds = args.negative.map(i => i.id);
 
   const now = new Date();
   const currentMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
@@ -16,7 +18,7 @@ export function sSelection(args: Inputs) {
   for (const item of args.latest
     .sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime())
     .slice(0, 10)) {
-    if (!item) continue;
+    if (!item || negativeIds.includes(item.id)) continue;
     allData.push(item);
     latestIds.push(item.videoId);
   }

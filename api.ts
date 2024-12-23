@@ -161,6 +161,7 @@ app.get("/song-session/:user/:id", async (c) => {
     vid.keywords || [],
     top?.map((t) => t.keywords) || []
   );
+
   const res = randomPush(
     sugs,
     selectedTop.map((s) => s.videoId)
@@ -282,7 +283,7 @@ app.post("/dislike/:userId/:songId", async (c) => {
     return c.json({ success: false, error: deleteLikeError.message });
   }
 
-  const res = await changeWeight(userId, songId, -1);
+  const res = await changeWeight(userId, songId, -0.7);
   if (typeof res !== "number") {
     c.status(500);
     return c.json({
